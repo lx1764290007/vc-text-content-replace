@@ -1,0 +1,8 @@
+{
+  "name": "vc-text-content-replace",
+  "version": "1.0.1",
+  "description": "html文本替换,支持全局关键词替换,支持局部替换,支持多选,支持异步,缺省值处理",
+  "main": "index.js",
+  "author": "VencentLum",
+  "license": "MIT"
+}

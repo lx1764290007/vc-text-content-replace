@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>example</title>
+
+<style>
+    fieldset {
+        margin-top: 20px;
+    }
+    code,.result {
+        background: #3d3d3d;
+        color: white;
+        display: block;
+        padding: 20px;
+        font-size: larger;
+        font-family: '微软雅黑',serif;
+        margin: 10px 0;
+        border-radius: 5px;
+    }
+    .result {
+        background: #00103f;
+    }
+</style>
+</head>
+<body>
+    <h3 id="demo">
+        <h2> Demo:</h2>
+        数据源:  new Map([['undefined', 'Android'], ['NaN', 'iPhone'],['null', 'Windows'],['😊', 'Linux']])
+    </h3>
+
+    <main >
+        <!-- 例一 start -->
+        <fieldset id="example">
+            <legend>demo1、 动态插入元素节点和文本节点后自动替换其文本内容</legend>
+            <button type="button" id="btn_0">插入节点</button>
+            <code id="yyds">
+                undefined 永远嘀神 ！！！ 😊 YYDS!!!
+            </code>
+        </fieldset>
+        <!-- 例一 end -->
+        <!-- 例二 start -->
+        <fieldset id="example1">
+            <legend>demo2、 带有 data-vc-ignore 属性的节点及其子节点将被忽略</legend>
+            <button type="button" id="btn_1">插入节点</button>
+            <code id="ignore">
+                这是 null，null不会被替换成 Windows
+            </code>
+        </fieldset>
+        <!-- 例二 end -->
+        <!-- 例三 start -->
+        <fieldset id="example2">
+            <legend>demo3、 使用RegExp的第二个构造参数</legend>
+            <button type="button" id="btn_2">模式 i</button>
+            <button type="button" id="btn_3">模式 gum</button>
+            <button type="button" id="btn_4">模式 guim</button>
+            <code id="_3">
+                UNdefined_😊||C++😊...C#-undeFINED_西湖-NaN-——————NAN;
+            </code>
+            <div id="example2-1"></div>
+            <br/>
+            <div id="example2-2"></div>
+            <br/>
+            <div id="example2-3"></div>
+        </fieldset>
+        <!-- 例三 end -->
+    </main>
+    <script type="module">
+        import VcTextContentReplace from '../index.js';
+
+        const dataDemo = new Map([['undefined', 'Android'], ['NaN', 'iPhone'],['null', 'Windows'],['😊', 'Linux']]);
+        /** demo1 start **/
+        ;(function(){
+            const tools = new VcTextContentReplace(document.querySelector('#example'), dataDemo);
+            tools.initialize();
+            const exampleText = 'undefined 永远嘀神 ！！！ 😊 YYDS!!!';
+            document.querySelector('#btn_0').onclick = function() {
+                const a = document.createElement('div');
+                a.classList.add('result');
+                const b = document.createElement('h4');
+                b.textContent = exampleText;
+                a.appendChild(b);
+                document.querySelector('#example').appendChild(a);
+            }
+
+        })()
+        /** demo1 end **/
+        /** demo2 start **/
+        ;(function(){
+            const tools = new VcTextContentReplace(document.querySelector('#example1'), dataDemo);
+            tools.initialize();
+            const exampleText = '这是 null，null不会被替换成 Windows';
+            document.querySelector('#btn_1').onclick = function() {
+                const a = document.createElement('div');
+                a.classList.add('result');
+                const b = document.createElement('h4');
+                a.dataset.vcIgnore = 'true';
+                b.textContent = exampleText;
+                // 带有 data-vcIgnore 属性的节点及其字节点的内容不会被处理
+                a.appendChild(b);
+                document.querySelector('#example1').appendChild(a);
+            }
+        })()
+        /** demo2 end **/
+        /** demo3 start **/
+        ;(function(){
+            const tools = new VcTextContentReplace(document.querySelector('#example2-1'), dataDemo, 'i');
+            tools.initialize();
+            const exampleText = 'UNdefined_😊||C++😊...C#-undeFINED_西湖-NaN-——————NAN;'
+            document.querySelector('#btn_2').onclick = function() {
+                const a = document.createElement('div');
+                a.classList.add('result');
+                const b = document.createElement('h4');
+                b.textContent = exampleText;
+                a.appendChild(b);
+                document.querySelector('#example2-1').appendChild(a);
+            }
+        })()
+        ;(function(){
+            const tools = new VcTextContentReplace(document.querySelector('#example2-2'), dataDemo, 'gum');
+            tools.initialize();
+            const exampleText = 'UNdefined_😊||C++😊...C#-undeFINED_西湖-NaN-——————NAN;'
+            document.querySelector('#btn_3').onclick = function() {
+                const a = document.createElement('div');
+                a.classList.add('result');
+                const b = document.createElement('h4');
+                b.textContent = exampleText;
+                a.appendChild(b);
+                document.querySelector('#example2-2').appendChild(a);
+            }
+        })()
+        ;(function(){
+            const tools = new VcTextContentReplace(document.querySelector('#example2-3'), dataDemo, 'guim');
+            tools.initialize();
+            const exampleText = 'UNdefined_😊||C++😊...C#-undeFINED_西湖-NaN-——————NAN;'
+            document.querySelector('#btn_4').onclick = function() {
+                const a = document.createElement('div');
+                a.classList.add('result');
+                const b = document.createElement('h4');
+                b.textContent = exampleText;
+                a.appendChild(b);
+                document.querySelector('#example2-3').appendChild(a);
+            }
+        })()
+        /** demo3 end **/
+    </script>
+</body>
+</html>
